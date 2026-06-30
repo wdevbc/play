@@ -173,16 +173,19 @@
 
         const currentLink = window.location.href;
         const testHomeLink = window.location.origin + window.location.pathname.replace('result.html', 'index.html');
+        // 각 티어별 PNG 이미지 경로 동적 설정 (예: /assets/gold.png)
+        const dynamicImageUrl = window.location.origin + window.location.pathname.replace('result.html', 'assets/' + this.selectedTier.toLowerCase() + '.png');
         
         console.log("6. 공유 링크 (currentLink):", currentLink);
         console.log("7. 홈 버튼 링크 (testHomeLink):", testHomeLink);
+        console.log("8. 공유 이미지 링크 (dynamicImageUrl):", dynamicImageUrl);
 
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
             title: `[자산 시장 투자 티어 테스트] 내 티어는 "${this.details.name}"!`,
             description: `"${this.details.title}"\n${this.details.desc.substring(0, 80)}...`,
-            imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop',
+            imageUrl: dynamicImageUrl,
             link: {
               mobileWebUrl: currentLink,
               webUrl: currentLink,
