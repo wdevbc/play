@@ -41,7 +41,7 @@ body {
   max-width: 800px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,9 +55,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 20px 0;
+  padding: 10px 0 16px 0;
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .header__logo {
@@ -97,7 +97,7 @@ body {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 40px 30px;
+  padding: 28px 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
@@ -117,7 +117,7 @@ body {
 /* 프로그레스 바 */
 .progress {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .progress__info {
@@ -155,7 +155,7 @@ body {
   font-family: var(--font-family);
   font-size: 1rem;
   font-weight: 700;
-  padding: 15px 30px;
+  padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -207,7 +207,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 16px;
 }
 
 .intro__logo-container {
@@ -218,7 +218,7 @@ body {
 }
 
 .intro__title {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: #fff;
   text-shadow: 0 0 10px rgba(200, 155, 60, 0.2);
@@ -230,9 +230,9 @@ body {
 }
 
 .intro__desc {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.5;
   max-width: 500px;
 }
 
@@ -242,17 +242,17 @@ body {
 
 /* 퀴즈 영역 */
 .quiz {
-  min-height: 380px;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .quiz__question {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  line-height: 1.6;
-  margin-bottom: 35px;
+  line-height: 1.45;
+  margin-bottom: 20px;
   color: #fff;
   border-left: 4px solid var(--gold-primary);
   padding-left: 15px;
@@ -261,7 +261,7 @@ body {
 .quiz__options {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .quiz__option {
@@ -270,13 +270,13 @@ body {
   border: 1.5px solid var(--border-color);
   color: var(--text-main);
   border-radius: 8px;
-  padding: 18px 24px;
+  padding: 12px 20px;
   font-family: var(--font-family);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   text-align: left;
   cursor: pointer;
   transition: all 0.25s ease;
-  line-height: 1.4;
+  line-height: 1.35;
   outline: none;
 }
 
@@ -302,7 +302,7 @@ body {
 .result__emblem-container {
   width: 220px;
   height: 220px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -310,7 +310,7 @@ body {
 }
 
 .result__tier-name {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -318,21 +318,21 @@ body {
 }
 
 .result__match-title {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .result__desc-box {
   background-color: #090e1a;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 25px;
-  line-height: 1.7;
+  padding: 20px;
+  line-height: 1.55;
   color: var(--text-muted);
   text-align: left;
-  margin-bottom: 35px;
+  margin-bottom: 24px;
   width: 100%;
   font-size: 1rem;
   white-space: pre-line;
@@ -353,7 +353,7 @@ body {
 .result__actions {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   width: 100%;
 }
 
@@ -413,8 +413,8 @@ body {
 .footer {
   width: 100%;
   text-align: center;
-  margin-top: 30px;
-  padding-top: 20px;
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-color);
   font-size: 0.8rem;
   color: rgba(160, 165, 181, 0.35);

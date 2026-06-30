@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,21 @@
   <meta name="description" content="나의 자산 시장 투자 티어 분석 결과를 확인하세요!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <!-- 카카오톡 SDK 로드 -->
   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="container">
     <!-- 헤더 -->
     <header class="header">
       <a href="../index.html" class="header__logo">
         <div class="header__logo-dot"></div>
-        Investment Tier Test
+        Investment Test
       </a>
       <a href="index.html" class="header__home-btn">다시 시작하기</a>
     </header>
@@ -70,13 +74,14 @@
         this.scoreParam = urlParams.get("score");
 
         this.tierDetails = window.LolAssetTier.tierDetails;
-        this.selectedTier = (this.tierParam && this.tierDetails[this.tierParam.toUpperCase()]) 
-          ? this.tierParam.toUpperCase() 
+        this.selectedTier = (this.tierParam && this.tierDetails[this.tierParam.toUpperCase()])
+          ? this.tierParam.toUpperCase()
           : "IRON";
         this.details = this.tierDetails[this.selectedTier];
 
-        // Kakao API JavaScript 키 등록 (필요시 교체)
-        this.KAKAO_JS_KEY = "YOUR_KAKAO_JS_KEY";
+        // 개발자 앱 등록 키를 입력해야 작동합니다. (테스트 공유를 위해 뼈대 제공)
+        // 사용자님이 카카오 디벨로퍼스(https://developers.kakao.com)에서 발급받은 'JavaScript 키'를 아래에 입력해 주시면 실제 작동합니다.
+        this.KAKAO_JS_KEY = "81105483e95e6eff2ab1f9d8267300e9";
 
         // DOM 요소 캐시 객체
         this.dom = {};
@@ -193,4 +198,5 @@
     });
   </script>
 </body>
+
 </html>

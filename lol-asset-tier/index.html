@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,19 @@
   <meta name="description" content="나의 자산 운용 철학과 경제력으로 평가하는 대표적인 등급(티어) 판정 테스트">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <div class="container">
     <!-- 헤더 -->
     <header class="header">
       <a href="../index.html" class="header__logo">
         <div class="header__logo-dot"></div>
-        Investment Tier Test
+        Investment Test
       </a>
       <a href="../index.html" class="header__home-btn">포털 홈으로</a>
     </header>
@@ -28,25 +32,26 @@
         <svg class="intro__logo-container" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="logo-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffe082"/>
-              <stop offset="50%" stop-color="#ffb300"/>
-              <stop offset="100%" stop-color="#ff6f00"/>
+              <stop offset="0%" stop-color="#ffe082" />
+              <stop offset="50%" stop-color="#ffb300" />
+              <stop offset="100%" stop-color="#ff6f00" />
             </linearGradient>
             <linearGradient id="logo-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00e5ff"/>
-              <stop offset="100%" stop-color="#006064"/>
+              <stop offset="0%" stop-color="#00e5ff" />
+              <stop offset="100%" stop-color="#006064" />
             </linearGradient>
           </defs>
           <!-- 날개 형상 -->
-          <path d="M20 40 L10 55 L25 70 L35 55 Z" fill="url(#logo-blue)" opacity="0.6"/>
-          <path d="M80 40 L90 55 L75 70 L65 55 Z" fill="url(#logo-blue)" opacity="0.6"/>
+          <path d="M20 40 L10 55 L25 70 L35 55 Z" fill="url(#logo-blue)" opacity="0.6" />
+          <path d="M80 40 L90 55 L75 70 L65 55 Z" fill="url(#logo-blue)" opacity="0.6" />
           <!-- 중앙 원반 -->
-          <circle cx="50" cy="50" r="35" fill="#0d1222" stroke="url(#logo-gold)" stroke-width="2"/>
-          <circle cx="50" cy="50" r="28" fill="#131a30" stroke="#1e283d" stroke-width="1.5"/>
+          <circle cx="50" cy="50" r="35" fill="#0d1222" stroke="url(#logo-gold)" stroke-width="2" />
+          <circle cx="50" cy="50" r="28" fill="#131a30" stroke="#1e283d" stroke-width="1.5" />
           <!-- 돈 주머니 / 저울 아이콘 -->
-          <path d="M50 35 V62 M40 45 H60 M40 60 H60" stroke="url(#logo-gold)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M43 45 L35 52 H51 Z" fill="url(#logo-blue)" opacity="0.8"/>
-          <path d="M57 45 L49 52 H65 Z" fill="url(#logo-blue)" opacity="0.8"/>
+          <path d="M50 35 V62 M40 45 H60 M40 60 H60" stroke="url(#logo-gold)" stroke-width="2.5"
+            stroke-linecap="round" />
+          <path d="M43 45 L35 52 H51 Z" fill="url(#logo-blue)" opacity="0.8" />
+          <path d="M57 45 L49 52 H65 Z" fill="url(#logo-blue)" opacity="0.8" />
         </svg>
         <h1 class="intro__title">자산 시장<br><span class="intro__title-highlight">투자 티어 테스트</span></h1>
         <p class="intro__desc">
@@ -144,7 +149,7 @@
         // 프로그레스 바 상태 계산 및 렌더링
         const total = this.questions.length;
         const progressPercentage = Math.round((idx / total) * 100);
-        
+
         this.dom.progressText.innerText = `질문 ${idx + 1} / ${total}`;
         this.dom.progressPercent.innerText = `${progressPercentage}%`;
         this.dom.progressFill.style.width = `${progressPercentage}%`;
@@ -166,7 +171,7 @@
       // 답변 선택 처리
       handleSelectOption(optIdx) {
         this.selectedAnswers[this.currentQuestionIdx] = optIdx;
-        
+
         if (this.currentQuestionIdx + 1 < this.questions.length) {
           this.loadQuestion(this.currentQuestionIdx + 1);
         } else {
@@ -204,4 +209,5 @@
     });
   </script>
 </body>
+
 </html>
