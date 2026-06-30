@@ -63,6 +63,9 @@
     </footer>
   </div>
 
+  <!-- 토스트 알림 메시지 상자 -->
+  <div class="toast" data-view="toast">결과 주소가 복사되었습니다!</div>
+
   <!-- 질문 및 알고리즘 파일 로드 -->
   <script src="js/tierCalculator.js"></script>
   <script>
@@ -104,6 +107,7 @@
         this.dom.matchTitle = document.querySelector("[data-text='match-title']");
         this.dom.resultDesc = document.querySelector("[data-box='desc']");
         this.dom.kakaoBtn = document.querySelector("[data-action='kakao-share']");
+        this.dom.toast = document.querySelector("[data-view='toast']");
       }
 
       // 결과 데이터 동적 렌더링
@@ -157,6 +161,34 @@
         this.dom.kakaoBtn.addEventListener("click", () => this.shareKakaoResult());
       }
 
+      // 토스트 메시지 노출 함수
+      showToast(msg) {
+        if (!this.dom.toast) return;
+        this.dom.toast.innerText = msg;
+        this.dom.toast.classList.add("toast--show");
+        setTimeout(() => {
+          this.dom.toast.classList.remove("toast--show");
+        }, 2200);
+      }
+
+      // 구형 브라우저 대응 클립보드 복사 폴백 함수
+      fallbackCopyText(text) {
+        const el = document.createElement('textarea');
+        el.value = text;
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        try {
+          document.execCommand('copy');
+          this.showToast("결과 주소가 복사되었습니다! 카카오톡 공유창이 열립니다.");
+        } catch (err) {
+          console.error("클립보드 복사 실패:", err);
+          this.showToast("주소 복사에 실패했습니다. 직접 복사해 주세요.");
+        }
+        document.body.removeChild(el);
+      }
+
       // 카카오톡 공유 처리 함수 (ES6 Arrow Function 구조)
       shareKakaoResult() {
         console.log("=== 카카오 공유 디버깅 정보 ===");
@@ -166,16 +198,26 @@
         console.log("4. 현재 브라우저 주소창 URL:", window.location.href);
         console.log("5. 현재 브라우저 Origin:", window.location.origin);
 
+        const currentLink = window.location.href;
+
+        // 클립보드 복사 실행 (최신 비동기 API 및 구형 브라우저 폴백 포함)
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentLink)
+            .then(() => this.showToast("결과 주소가 복사되었습니다! 카카오톡 공유창이 열립니다."))
+            .catch(() => this.fallbackCopyText(currentLink));
+        } else {
+          this.fallbackCopyText(currentLink);
+        }
+
         if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
-          alert("카카오 공유를 위해서는 Kakao 디벨로퍼스 JavaScript 키 연동이 필요합니다.\n(result.html 내 'YOUR_KAKAO_JS_KEY' 부분에 앱 키를 설정해주세요!)");
+          this.showToast("결과 주소가 복사되었습니다! (카카오 연동 대기)");
           return;
         }
 
-        const currentLink = window.location.href;
         const testHomeLink = window.location.origin + window.location.pathname.replace('result.html', 'index.html');
         // 각 티어별 PNG 이미지 경로 동적 설정 (예: /assets/gold.png)
         const dynamicImageUrl = window.location.origin + window.location.pathname.replace('result.html', 'assets/' + this.selectedTier.toLowerCase() + '.png');
-
+        
         console.log("6. 공유 링크 (currentLink):", currentLink);
         console.log("7. 홈 버튼 링크 (testHomeLink):", testHomeLink);
         console.log("8. 공유 이미지 링크 (dynamicImageUrl):", dynamicImageUrl);
