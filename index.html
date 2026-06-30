@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자산 & 투자 티어 테스트 포털 (Asset & Investment Tier Portal)</title>
+  <meta name="description" content="다양한 주제의 자산, 성향, 시장 투자 티어 테스트를 한곳에서 즐겨보세요.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #060913;
+      --card-bg: #0d1222;
+      --border-color: #1e283d;
+      --gold-primary: #c89b3c;
+      --gold-secondary: #f0e6d2;
+      --blue-neon: #00e5ff;
+      --text-main: #f0e6d2;
+      --text-muted: #a0a5b5;
+      --font-outfit: 'Outfit', 'Noto Sans KR', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-outfit);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% 30%, #0d1a36 0%, #060913 70%);
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .portal {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .portal__header {
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .portal__title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.4), 0 0 30px rgba(0, 229, 255, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .portal__subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .portal__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    @media (min-width: 600px) {
+      .portal__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 35px 25px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--blue-neon));
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 12px 30px rgba(200, 155, 60, 0.15), 0 0 15px rgba(0, 229, 255, 0.1);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card__icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 8px rgba(200, 155, 60, 0.4));
+      transition: transform 0.4s;
+    }
+
+    .card:hover .card__icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card__title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--gold-secondary);
+      transition: color 0.3s;
+    }
+
+    .card:hover .card__title {
+      color: #fff;
+    }
+
+    .card__desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    .portal__footer {
+      font-size: 0.85rem;
+      color: rgba(160, 165, 181, 0.4);
+      margin-top: 20px;
+      animation: fadeIn 1.5s ease-out 0.5s both;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="portal">
+    <header class="portal__header">
+      <h1 class="portal__title">Tier Test Portal</h1>
+      <p class="portal__subtitle">다양한 주제의 자산 및 부동산 투자 티어 테스트 서비스</p>
+    </header>
+
+    <main class="portal__grid">
+      <!-- 자산 시장 투자 티어 테스트 카드 -->
+      <a href="./lol-asset-tier/index.html" class="card">
+        <svg class="card__icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30" fill="url(#circle-grad)" stroke="#c89b3c" stroke-width="2"/>
+          <path d="M32 12V52M12 32H52M22 22L42 42M22 42L42 22" stroke="#c89b3c" stroke-width="1.5" stroke-dasharray="2 2"/>
+          <circle cx="32" cy="32" r="14" fill="#0d1222" stroke="#00e5ff" stroke-width="2"/>
+          <path d="M28 27H35C36 27 37 28 37 29C37 30 36 31 35 31H28V33H35C36.5 33 37.5 34 37.5 35.5C37.5 37 36.5 38 35 38H28M32 24V40" stroke="#f0e6d2" stroke-width="2" stroke-linecap="round"/>
+          <defs>
+            <radialGradient id="circle-grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 32) rotate(90) scale(30)">
+              <stop offset="0%" stop-color="#1a2b4c"/>
+              <stop offset="100%" stop-color="#070c16"/>
+            </radialGradient>
+          </defs>
+        </svg>
+        <h2 class="card__title">자산 시장 투자 티어 테스트</h2>
+        <p class="card__desc">내 투자 가치관과 자산 상태를 대표적인 등급(티어) 시스템에 빗대어 정확하게 판별해 드립니다.</p>
+      </a>
+    </main>
+
+    <footer class="portal__footer">
+      &copy; 2026 Tier Test Portal. All rights reserved. 본 서비스는 모의 자산 진단 및 투자 성향 테스트 콘텐츠입니다.
+    </footer>
+  </div>
+</body>
+</html>

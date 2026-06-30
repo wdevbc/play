@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>분석 결과 | 자산 시장 투자 티어 테스트</title>
+  <meta name="description" content="나의 자산 시장 투자 티어 분석 결과를 확인하세요!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 카카오톡 SDK 로드 -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 -->
+    <header class="header">
+      <a href="../index.html" class="header__logo">
+        <div class="header__logo-dot"></div>
+        Investment Tier Test
+      </a>
+      <a href="index.html" class="header__home-btn">다시 시작하기</a>
+    </header>
+
+    <!-- 결과 메인 박스 -->
+    <main data-box="result" class="content-box">
+      <div class="result">
+        <!-- 스코어 배지 (점수 환산 시 노출) -->
+        <div data-badge="score" class="result__score-badge" style="display: none;"></div>
+
+        <!-- 티어 엠블럼 SVG 영역 -->
+        <div data-container="emblem" class="result__emblem-container">
+          <!-- SVG가 동적으로 주입됩니다 -->
+        </div>
+
+        <!-- 티어 한글명 -->
+        <p data-text="tier-name" class="result__tier-name">TIER NAME</p>
+
+        <!-- 매칭 타이틀 -->
+        <h1 data-text="match-title" class="result__match-title">결과 타이틀</h1>
+
+        <!-- 상세 설명 박스 -->
+        <div data-box="desc" class="result__desc-box">
+          결과 설명이 이곳에 들어갑니다.
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="result__actions">
+          <button data-action="kakao-share" class="btn btn--gold">카카오톡으로 티어 인증하기</button>
+          <a href="index.html" class="btn btn--blue">다시 테스트하기</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+      &copy; 2026 Tier Test. All rights reserved. 본 서비스는 모의 자산 진단 및 투자 성향 테스트 콘텐츠입니다.
+    </footer>
+  </div>
+
+  <!-- 질문 및 알고리즘 파일 로드 -->
+  <script src="js/tierCalculator.js"></script>
+  <script>
+    class AssetTierResult {
+      constructor() {
+        // 1. URL 파라미터 파싱 및 분석 상태 정의
+        const urlParams = new URLSearchParams(window.location.search);
+        this.tierParam = urlParams.get("tier");
+        this.scoreParam = urlParams.get("score");
+
+        this.tierDetails = window.LolAssetTier.tierDetails;
+        this.selectedTier = (this.tierParam && this.tierDetails[this.tierParam.toUpperCase()]) 
+          ? this.tierParam.toUpperCase() 
+          : "IRON";
+        this.details = this.tierDetails[this.selectedTier];
+
+        // Kakao API JavaScript 키 등록 (필요시 교체)
+        this.KAKAO_JS_KEY = "YOUR_KAKAO_JS_KEY";
+
+        // DOM 요소 캐시 객체
+        this.dom = {};
+      }
+
+      // 결과 화면 초기화
+      init() {
+        this.cacheElements();
+        this.renderResult();
+        this.initKakaoSDK();
+        this.bindEvents();
+      }
+
+      // DOM 요소 캐싱
+      cacheElements() {
+        this.dom.resultBox = document.querySelector("[data-box='result']");
+        this.dom.scoreBadge = document.querySelector("[data-badge='score']");
+        this.dom.emblemContainer = document.querySelector("[data-container='emblem']");
+        this.dom.tierName = document.querySelector("[data-text='tier-name']");
+        this.dom.matchTitle = document.querySelector("[data-text='match-title']");
+        this.dom.resultDesc = document.querySelector("[data-box='desc']");
+        this.dom.kakaoBtn = document.querySelector("[data-action='kakao-share']");
+      }
+
+      // 결과 데이터 동적 렌더링
+      renderResult() {
+        const { name, title, desc, svg, textColor, glowColor, bgColor } = this.details;
+
+        // 헤더 텍스트 색상 및 네온 글로우 스타일 바인딩
+        this.dom.tierName.style.color = textColor;
+        this.dom.tierName.style.textShadow = `0 0 10px ${glowColor}`;
+        this.dom.matchTitle.style.textShadow = `0 0 15px ${glowColor}`;
+
+        // 결과 상자 등급 고유 테마 배경 렌더링
+        this.dom.resultBox.style.backgroundImage = `radial-gradient(circle at 50% 20%, rgba(13, 18, 34, 0.4) 0%, #0d1222 100%), ${bgColor}`;
+        this.dom.resultBox.style.borderColor = textColor;
+        this.dom.resultBox.style.boxShadow = `0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px ${glowColor}1A`;
+
+        // 스코어 배지 렌더링
+        this.dom.scoreBadge.style.display = "inline-block";
+        this.dom.scoreBadge.style.borderColor = textColor;
+        this.dom.scoreBadge.style.color = textColor;
+        this.dom.scoreBadge.style.backgroundColor = `${textColor}1A`;
+
+        if (this.scoreParam !== null && this.scoreParam !== undefined) {
+          this.dom.scoreBadge.innerText = `최종 누적 스코어: ${this.scoreParam}점`;
+        } else {
+          this.dom.scoreBadge.innerText = `자산 등급 프리패스 0.01%`;
+        }
+
+        // SVG 그래픽 및 텍스트 바인딩
+        this.dom.emblemContainer.innerHTML = svg;
+        this.dom.tierName.innerText = name;
+        this.dom.matchTitle.innerText = `"${title}"`;
+        this.dom.resultDesc.innerText = desc;
+      }
+
+      // Kakao SDK 초기화
+      initKakaoSDK() {
+        if (typeof Kakao !== 'undefined') {
+          try {
+            if (this.KAKAO_JS_KEY !== "YOUR_KAKAO_JS_KEY" && this.KAKAO_JS_KEY !== "") {
+              Kakao.init(this.KAKAO_JS_KEY);
+            }
+          } catch (e) {
+            console.error("Kakao SDK Initialization Error:", e);
+          }
+        }
+      }
+
+      // 이벤트 바인딩
+      bindEvents() {
+        this.dom.kakaoBtn.addEventListener("click", () => this.shareKakaoResult());
+      }
+
+      // 카카오톡 공유 처리 함수 (ES6 Arrow Function 구조)
+      shareKakaoResult() {
+        if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+          alert("카카오 공유를 위해서는 Kakao 디벨로퍼스 JavaScript 키 연동이 필요합니다.\n(result.html 내 'YOUR_KAKAO_JS_KEY' 부분에 앱 키를 설정해주세요!)");
+          return;
+        }
+
+        const currentLink = window.location.href;
+        const testHomeLink = window.location.origin + window.location.pathname.replace('result.html', 'index.html');
+
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: `[자산 시장 투자 티어 테스트] 내 티어는 "${this.details.name}"!`,
+            description: `"${this.details.title}"\n${this.details.desc.substring(0, 80)}...`,
+            imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop',
+            link: {
+              mobileWebUrl: currentLink,
+              webUrl: currentLink,
+            },
+          },
+          buttons: [
+            {
+              title: '나도 티어 확인하러 가기',
+              link: {
+                mobileWebUrl: testHomeLink,
+                webUrl: testHomeLink,
+              },
+            },
+          ],
+        });
+      }
+    }
+
+    // DOM 로딩 완료 시 인스턴스화
+    document.addEventListener("DOMContentLoaded", () => {
+      const resultApp = new AssetTierResult();
+      resultApp.init();
+    });
+  </script>
+</body>
+</html>
