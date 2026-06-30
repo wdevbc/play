@@ -103,8 +103,22 @@
         this.currentQuestionIdx = 0;
         this.selectedAnswers = [];
 
+        // 1번 질문(순자산 규모 스케일 질문, 인덱스 0)을 제외한 모든 질문의 답변 옵션을 무작위로 섞음
+        for (let i = 1; i < this.questions.length; i++) {
+          this.shuffleArray(this.questions[i].options);
+        }
+
         // DOM 요소 캐시 객체
         this.dom = {};
+      }
+
+      // 피셔-예이츠 셔플 알고리즘
+      shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
       }
 
       // 앱 초기화 실행 메서드
