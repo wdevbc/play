@@ -159,6 +159,13 @@
 
       // 카카오톡 공유 처리 함수 (ES6 Arrow Function 구조)
       shareKakaoResult() {
+        console.log("=== 카카오 공유 디버깅 정보 ===");
+        console.log("1. Kakao SDK 로드 여부:", typeof Kakao !== 'undefined');
+        console.log("2. Kakao SDK 초기화 여부:", typeof Kakao !== 'undefined' && Kakao.isInitialized());
+        console.log("3. 사용 중인 JS 키:", this.KAKAO_JS_KEY);
+        console.log("4. 현재 브라우저 주소창 URL:", window.location.href);
+        console.log("5. 현재 브라우저 Origin:", window.location.origin);
+
         if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
           alert("카카오 공유를 위해서는 Kakao 디벨로퍼스 JavaScript 키 연동이 필요합니다.\n(result.html 내 'YOUR_KAKAO_JS_KEY' 부분에 앱 키를 설정해주세요!)");
           return;
@@ -166,6 +173,9 @@
 
         const currentLink = window.location.href;
         const testHomeLink = window.location.origin + window.location.pathname.replace('result.html', 'index.html');
+        
+        console.log("6. 공유 링크 (currentLink):", currentLink);
+        console.log("7. 홈 버튼 링크 (testHomeLink):", testHomeLink);
 
         Kakao.Share.sendDefault({
           objectType: 'feed',
